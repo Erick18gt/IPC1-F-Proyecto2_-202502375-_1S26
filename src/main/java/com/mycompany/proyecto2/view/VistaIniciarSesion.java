@@ -2,6 +2,8 @@
 package com.mycompany.proyecto2.view;
 
 import com.mycompany.proyecto2.controller.UsuarioControler;
+import com.mycompany.proyecto2.main.abstracto.Usuario;
+import javax.swing.JOptionPane;
 
 
 public class VistaIniciarSesion extends javax.swing.JFrame {
@@ -23,10 +25,9 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCod = new javax.swing.JTextField();
         txtContr = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnIniciarSesion = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,16 +37,14 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
 
         jLabel3.setText("Ingrese su contraseña");
 
-        jButton1.setText("Iniciar sesion");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-
-        jLabel4.setText("¿No estas registrado?");
-
-        jButton2.setText("Registrarse");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        btnIniciarSesion.setText("Iniciar sesion");
+        btnIniciarSesion.addActionListener(this::btnIniciarSesionActionPerformed);
 
         btnListar.setText("Listar Estudiantes");
         btnListar.addActionListener(this::btnListarActionPerformed);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(this::btnSalirActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,9 +52,6 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,13 +62,18 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jButton2)
-                                    .addComponent(btnListar)))))
+                                .addComponent(btnListar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jButton1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(172, 172, 172)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(145, 145, 145)
+                                .addComponent(btnIniciarSesion)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
@@ -87,34 +88,72 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListar)
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIniciarSesion)
+                    .addComponent(btnSalir))
                 .addGap(56, 56, 56))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+    UsuarioControler u = new UsuarioControler();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       VistaRegistrarse vRegistrarse = new VistaRegistrarse();
-       vRegistrarse.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    String codigo = txtCod.getText();
+    String password = txtContr.getText();
+
+ 
+    if(codigo.isEmpty() || password.isEmpty()){
+        JOptionPane.showMessageDialog(this, "Llene todos los campos");
+        return;
+    }
+
+    
+    if(codigo.equals("admin") && password.equals("IPC1F")){
+
+        new VistaAdmin().setVisible(true);
+        this.dispose();
+        return;
+    }
+
+    Usuario usuario = u.buscarUsuario(codigo, password);
+
+    if(usuario == null){
+        JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+        return;
+    }
+
+  /*
+    switch(usuario.getRol()){
+        case ESTUDIANTE:
+            new VistaEstudiante(usuario).setVisible(true);
+            break;
+
+        case INSTRUCTOR:
+            new VistaInstructor(usuario).setVisible(true);
+            break;
+
+        case ADMINISTRADOR:
+            new VistaAdmin().setVisible(true);
+            break;
+    }
+*/
+    this.dispose();       
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
       UsuarioControler u = new UsuarioControler();
       u.listarUsuarios();
     }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,13 +181,12 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnListar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtContr;
     // End of variables declaration//GEN-END:variables

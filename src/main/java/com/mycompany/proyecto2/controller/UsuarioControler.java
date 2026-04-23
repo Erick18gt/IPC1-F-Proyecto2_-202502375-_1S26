@@ -23,6 +23,9 @@ import javax.swing.JOptionPane;
 public class UsuarioControler {
     private static Usuario[] usuarios = new Usuario[100];
     private static int contadorUsuarios =0;
+    private static int contadorEstudiante = 1;
+    private static int contadorInstructor = 1;
+
     private static final String NOMBRE_ARCHIVO = "estudiantes.ser";
     public UsuarioControler(){
         cargarUsuarios();
@@ -89,6 +92,8 @@ public class UsuarioControler {
             }try(ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo))){
               salida.writeObject(usuarios);
               salida.writeInt(contadorUsuarios);
+              salida.writeInt(contadorEstudiante);
+              salida.writeInt(contadorInstructor);
               System.out.println("Usuarios guardados correctamente en "+ NOMBRE_ARCHIVO);
             }
         }catch(IOException e){
@@ -114,6 +119,8 @@ public class UsuarioControler {
         }try(ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivo))){
            usuarios = (Usuario[]) entrada.readObject();
            contadorUsuarios = entrada.readInt();
+           contadorEstudiante = entrada.readInt();
+           contadorInstructor = entrada.readInt();
              System.out.println("Estudiantes cargados exitosamente");
          }catch(IOException | ClassNotFoundException e){
              System.out.println("Error al cargar los usuarios "+e.getMessage());
@@ -138,4 +145,45 @@ public class UsuarioControler {
     public int getContadorUsuarios(){
     return contadorUsuarios;
     }
+    public static int getSiguienteCodigoEstudiante(){
+    return contadorEstudiante++;
+    }
+
+    public static int getSiguienteCodigoInstructor(){
+    return contadorInstructor++;
+    }
+    public Usuario buscarUsuario(String codigo, String password){
+    for(int i=0; i<contadorUsuarios; i++){
+        if(usuarios[i].getCodigo().equals(codigo) && usuarios[i].getContraseña().equals(password)){
+        return usuarios[i];   
+        }
+   
+    
+    }
+        return null;
+    }
+    public Usuario buscarPorCodigo(String codigo){
+    for(int i = 0; i < contadorUsuarios; i++){
+        if(usuarios[i] != null &&
+           usuarios[i].getCodigo().equalsIgnoreCase(codigo)){
+            return usuarios[i];
+        }
+    }
+    return null;
+}
+    public boolean eliminarUsuario(String codigo){
+    for(int i = 0; i < contadorUsuarios; i++){
+
+        if(usuarios[i] != null &&
+           usuarios[i].getCodigo().equalsIgnoreCase(codigo)){
+            usuarios[i] = usuarios[contadorUsuarios - 1];
+            usuarios[contadorUsuarios - 1] = null;
+            contadorUsuarios--;
+            guardarUsuarios();
+
+            return true;
+        }
+    }
+    return false;
+}
 }

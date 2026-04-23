@@ -6,6 +6,8 @@ import com.mycompany.proyecto2.main.utils.Genero;
 import com.mycompany.proyecto2.main.utils.Rol;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+
 
 /**
  *
@@ -171,8 +173,17 @@ public class VistaRegistrarse extends javax.swing.JFrame {
      }else if(cmbGenero.getSelectedItem().equals("Femenino")){
          generoActual= Genero.FEMENINO;
      }
-     Date todayDate= new Date();
-     userControler.agregarUsuario(this.txtNombre.getText(), this.txtApellido.getText(), rolActual, generoActual,todayDate, this.txtPassword.getText());
+     Date fechaNacimiento = null;
+
+    try {
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    fechaNacimiento = formato.parse(txtNacimiento.getText());
+
+    } catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Ingrese la fecha en formato dd/MM/yyyy");
+    return;
+    }
+     userControler.agregarUsuario(this.txtNombre.getText(), this.txtApellido.getText(), rolActual, generoActual,fechaNacimiento, this.txtPassword.getText());
      JOptionPane.showMessageDialog(null,rolActual+" Creado correctamente");
      this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
