@@ -4,6 +4,10 @@
  */
 package com.mycompany.proyecto2.view;
 
+import com.mycompany.proyecto2.controller.CursoControler;
+import com.mycompany.proyecto2.main.abstracto.Curso;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author erick
@@ -42,12 +46,16 @@ public class VistaGestionCursos extends javax.swing.JFrame {
         btnCrearCurso.addActionListener(this::btnCrearCursoActionPerformed);
 
         btnBuscarCurso.setText("Buscar Curso");
+        btnBuscarCurso.addActionListener(this::btnBuscarCursoActionPerformed);
 
         btnEditarCurso.setText("Editar Curso");
+        btnEditarCurso.addActionListener(this::btnEditarCursoActionPerformed);
 
         btnEliminarCurso.setText("Eliminar Curso");
+        btnEliminarCurso.addActionListener(this::btnEliminarCursoActionPerformed);
 
         btnCargarCSV.setText("Cargar CSV");
+        btnCargarCSV.addActionListener(this::btnCargarCSVActionPerformed);
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(this::btnRegresarActionPerformed);
@@ -104,31 +112,85 @@ public class VistaGestionCursos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCrearCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCursoActionPerformed
-        // TODO add your handling code here:
+    VistaRegistrarCurso vRegistrarC = new VistaRegistrarCurso();
+    vRegistrarC.setVisible(true);
     }//GEN-LAST:event_btnCrearCursoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnBuscarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCursoActionPerformed
+      CursoControler c = new CursoControler();
 
-        /* Create and display the form */
+    String codigo = JOptionPane.showInputDialog("Ingrese código del curso");
+    if(codigo == null) return;
+
+    Curso curso = c.buscarCurso(codigo);
+
+    if(curso != null){
+        JOptionPane.showMessageDialog(null,
+            "Código: " + curso.getCodigo() +
+            "\nNombre: " + curso.getNombre() +
+            "\nDescripción: " + curso.getDescripcion() +
+            "\nCupo: " + curso.getCupoMax() +
+            "\nInscritos: " + curso.getInscritos()
+        );
+    } else {
+        JOptionPane.showMessageDialog(null, "Curso no encontrado");
+    }
+    }//GEN-LAST:event_btnBuscarCursoActionPerformed
+
+    private void btnEditarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCursoActionPerformed
+     CursoControler c = new CursoControler();
+    String codigo = JOptionPane.showInputDialog("Ingrese código del curso");
+    if(codigo == null) return;
+
+    Curso curso = c.buscarCurso(codigo);
+
+    if(curso == null){
+        JOptionPane.showMessageDialog(null, "Curso no encontrado");
+        return;
+    }
+
+    String nombre = JOptionPane.showInputDialog("Nuevo nombre", curso.getNombre());
+    if(nombre == null) return;
+
+    String descripcion = JOptionPane.showInputDialog("Nueva descripción", curso.getDescripcion());
+    if(descripcion == null) return;
+
+    int cupo;
+    try{
+        cupo = Integer.parseInt(JOptionPane.showInputDialog("Nuevo cupo", curso.getCupoMax()));
+    }catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Cupo inválido");
+        return;
+    }
+
+    c.editarCurso(codigo, nombre, descripcion, cupo);
+
+    JOptionPane.showMessageDialog(null, "Curso actualizado");
+    }//GEN-LAST:event_btnEditarCursoActionPerformed
+
+    private void btnEliminarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCursoActionPerformed
+    CursoControler c = new CursoControler();
+
+    String codigo = JOptionPane.showInputDialog("Ingrese código del curso a eliminar");
+    if(codigo == null) return;
+
+    boolean eliminado = c.eliminarCurso(codigo);
+
+    if(eliminado){
+        JOptionPane.showMessageDialog(null, "Curso eliminado correctamente");
+    } else {
+        JOptionPane.showMessageDialog(null, "Curso no encontrado");
+    }
+    }//GEN-LAST:event_btnEliminarCursoActionPerformed
+
+    private void btnCargarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarCSVActionPerformed
+     CursoControler c = new CursoControler();
+     c.cargarCSV();
+    
+
+    }//GEN-LAST:event_btnCargarCSVActionPerformed
+
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> new VistaGestionCursos().setVisible(true));
     }
 

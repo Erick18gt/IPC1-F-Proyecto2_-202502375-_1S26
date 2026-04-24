@@ -6,6 +6,7 @@ package com.mycompany.proyecto2.view;
 
 import com.mycompany.proyecto2.controller.UsuarioControler;
 import com.mycompany.proyecto2.main.abstracto.Usuario;
+import com.mycompany.proyecto2.main.utils.Rol;
 import com.mycompany.proyecto2.model.estudiante;
 import javax.swing.JOptionPane;
 
@@ -56,6 +57,7 @@ public class VistaGestionEstudiante extends javax.swing.JFrame {
         btnEliminarEstudiante.addActionListener(this::btnEliminarEstudianteActionPerformed);
 
         btnCargarCSV.setText("Cargar CSV");
+        btnCargarCSV.addActionListener(this::btnCargarCSVActionPerformed);
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(this::btnRegresarActionPerformed);
@@ -208,6 +210,11 @@ JOptionPane.showMessageDialog(null, info);
     }
     
     }//GEN-LAST:event_btnEliminarEstudianteActionPerformed
+
+    private void btnCargarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarCSVActionPerformed
+        UsuarioControler u = new UsuarioControler();
+        u.cargarCSVUsuarios(Rol.ESTUDIANTE);
+    }//GEN-LAST:event_btnCargarCSVActionPerformed
 
     /**
      * @param args the command line arguments

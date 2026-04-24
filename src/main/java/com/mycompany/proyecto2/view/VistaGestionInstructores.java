@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.proyecto2.view;
 
 import com.mycompany.proyecto2.controller.UsuarioControler;
 import com.mycompany.proyecto2.main.abstracto.Usuario;
+import com.mycompany.proyecto2.main.utils.Rol;
 
 import com.mycompany.proyecto2.model.instructor;
 import javax.swing.JOptionPane;
@@ -60,6 +58,7 @@ public class VistaGestionInstructores extends javax.swing.JFrame {
         btnEliminarInstructor.addActionListener(this::btnEliminarInstructorActionPerformed);
 
         btnCargarCSV.setText("Cargar CSV");
+        btnCargarCSV.addActionListener(this::btnCargarCSVActionPerformed);
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(this::btnRegresarActionPerformed);
@@ -208,6 +207,11 @@ JOptionPane.showMessageDialog(null, info);
     }
     }
     }//GEN-LAST:event_btnEliminarInstructorActionPerformed
+
+    private void btnCargarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarCSVActionPerformed
+     UsuarioControler u = new UsuarioControler();
+     u.cargarCSVUsuarios(Rol.INSTRUCTOR);
+    }//GEN-LAST:event_btnCargarCSVActionPerformed
 
     /**
      * @param args the command line arguments

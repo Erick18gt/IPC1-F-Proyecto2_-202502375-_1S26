@@ -7,13 +7,17 @@ import com.mycompany.proyecto2.main.utils.Genero;
 import com.mycompany.proyecto2.main.utils.Rol;
 import com.mycompany.proyecto2.model.estudiante;
 import com.mycompany.proyecto2.model.instructor;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -185,5 +189,50 @@ public class UsuarioControler {
         }
     }
     return false;
+}
+    public void cargarCSVUsuarios(Rol rol){
+
+    JFileChooser fileChooser = new JFileChooser();
+    int opcion = fileChooser.showOpenDialog(null);
+
+    if(opcion != JFileChooser.APPROVE_OPTION){
+        return;
+    }
+
+    File archivo = fileChooser.getSelectedFile();
+
+    try(BufferedReader br = new BufferedReader(new FileReader(archivo))){
+
+        String linea;
+
+        br.readLine();
+
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        while((linea = br.readLine()) != null){
+
+            if(linea.trim().isEmpty()) continue;
+
+            String[] datos = linea.split(",");
+
+            if(datos.length < 5) continue;
+
+            String nombre = datos[0].trim();
+            String apellido = datos[1].trim();
+            String fechaStr = datos[2].trim();
+            String generoStr = datos[3].trim();
+            String password = datos[4].trim();
+
+            Date fecha = formato.parse(fechaStr);
+            Genero genero = Genero.valueOf(generoStr.toUpperCase());
+
+            agregarUsuario(nombre, apellido, rol, genero, fecha, password);
+        }
+
+        JOptionPane.showMessageDialog(null, "CSV cargado correctamente para " + rol);
+
+    }catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Error al cargar CSV: " + e.getMessage());
+    }
 }
 }
