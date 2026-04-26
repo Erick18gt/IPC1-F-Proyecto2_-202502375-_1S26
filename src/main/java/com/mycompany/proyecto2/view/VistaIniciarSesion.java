@@ -128,7 +128,7 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
         return;
     }
 
-  /*
+  
     switch(usuario.getRol()){
         case ESTUDIANTE:
             new VistaEstudiante(usuario).setVisible(true);
@@ -142,7 +142,7 @@ public class VistaIniciarSesion extends javax.swing.JFrame {
             new VistaAdmin().setVisible(true);
             break;
     }
-*/
+
     this.dispose();       
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 

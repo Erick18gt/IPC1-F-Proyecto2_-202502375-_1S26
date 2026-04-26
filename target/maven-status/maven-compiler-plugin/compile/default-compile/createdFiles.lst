@@ -10,6 +10,8 @@ com\mycompany\proyecto2\view\VistaIniciarSesion.class
 com\mycompany\proyecto2\controller\UsuarioControler.class
 com\mycompany\proyecto2\controller\UsuarioControler$1.class
 com\mycompany\proyecto2\view\VistaAdmin.class
+com\mycompany\proyecto2\view\VistaEstudiante.class
+com\mycompany\proyecto2\view\VistaIniciarSesion$1.class
 com\mycompany\proyecto2\main\utils\Genero.class
 com\mycompany\proyecto2\view\VistaGestionCursos.class
 com\mycompany\proyecto2\view\VistaGestionInstructores.class
@@ -17,3 +19,4 @@ com\mycompany\proyecto2\main\abstracto\Usuario.class
 com\mycompany\proyecto2\main\utils\GeneradorCodigo.class
 com\mycompany\proyecto2\main\abstracto\Curso.class
 com\mycompany\proyecto2\main\utils\Rol.class
+com\mycompany\proyecto2\view\VistaInstructor.class

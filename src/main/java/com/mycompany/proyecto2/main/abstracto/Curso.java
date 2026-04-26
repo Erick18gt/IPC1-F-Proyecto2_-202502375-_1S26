@@ -11,6 +11,8 @@ public class Curso implements Serializable{
      private String descripcion;
      private int cupoMax;
      private int inscritos;
+     private String[] estudiantes = new String[100];
+private int contadorEstudiantes = 0;
   public Curso(String codigo, String nombre, String descripcion, int cupoMax) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -59,5 +61,34 @@ public class Curso implements Serializable{
     public void disminuirInscritos(){
         inscritos--;
     }
+    public boolean inscribir(String codigoEstudiante){
+
+    // validar cupo
+    if(inscritos >= cupoMax){
+        return false;
+    }
+
+    // evitar duplicados (opcional pero pro)
+    for(int i = 0; i < contadorEstudiantes; i++){
+        if(estudiantes[i].equals(codigoEstudiante)){
+            return false;
+        }
+    }
+
+    estudiantes[contadorEstudiantes] = codigoEstudiante;
+    contadorEstudiantes++;
+    inscritos++;
+
+    return true;
+}
+    public boolean estaInscrito(String codigo){
+
+    for(int i = 0; i < contadorEstudiantes; i++){
+        if(estudiantes[i].equals(codigo)){
+            return true;
+        }
+    }
+    return false;
+}
     
 }

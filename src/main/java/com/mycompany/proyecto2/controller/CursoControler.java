@@ -147,4 +147,11 @@ public class CursoControler {
         }
     }
 }
+    public Curso[] getCursos(){
+    return cursos;
+}
+
+public int getContadorCursos(){
+    return contadorCursos;
+}
 }
